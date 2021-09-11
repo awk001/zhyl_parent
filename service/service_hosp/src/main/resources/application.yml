@@ -1,0 +1,59 @@
+# 服务端口
+server:
+  port: 8010
+  tomcat:
+    uri-encoding: utf-8
+
+# 应用名称
+spring:
+  application:
+    name: service_hosp
+  profiles:
+    active: dev
+
+  # 数据库连接
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zhyl_hosp?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 103419
+    hikari:
+      max-lifetime: 10000
+      minimum-idle: 5
+
+  #  data:
+#    mongodb:
+#      host: 192.168.44.163
+#      port: 27017
+#      database: zhyl-hosp
+
+  jackson:
+    date-format: java.text.SimpleDateFormat
+    time-zone: GMT+8
+
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+
+
+
+
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+    #设置sentinel地址
+#    sentinel:
+#      transport:
+#        dashboard: http://127.0.0.1:8858
+#开启sentinel
+#feign:
+#  sentinel:
+#    enabled: true
+
+
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath*:cn/code/awk/mapper/xml/*Mapper.xml
