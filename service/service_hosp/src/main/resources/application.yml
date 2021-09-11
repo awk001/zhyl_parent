@@ -57,3 +57,5 @@ spring:
 # mybatis-plus配置
 mybatis-plus:
   mapper-locations: classpath*:cn/code/awk/mapper/xml/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
