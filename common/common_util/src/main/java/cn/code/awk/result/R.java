@@ -11,13 +11,13 @@ import lombok.Data;
 @ApiModel(value = "全局统一返回结果")
 public class Result<T> {
 
-    @ApiModelProperty(value = "返回码")
+    @ApiModelProperty(value = "返回码", example = "200")
     private Integer code;
 
-    @ApiModelProperty(value = "返回消息")
+    @ApiModelProperty(value = "返回消息", example = "message")
     private String message;
 
-    @ApiModelProperty(value = "返回数据")
+    @ApiModelProperty(value = "返回数据", example = "json data")
     private T data;
 
     public Result(){}
