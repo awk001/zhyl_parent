@@ -1,15 +1,17 @@
 package cn.code.awk.config;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import static com.google.common.base.Predicates.or;
+import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * Swagger2配置信息
@@ -19,32 +21,42 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2Config {
 
     @Bean
-    public Docket webApiConfig(){
+    public Docket webApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
                 //只显示api路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/api/.*")))
+                .paths(Predicates.and(regex("/api/.*")))
                 .build();
 
     }
 
+    private Predicate<String> selfCareApiPaths() {
+
+        //noinspection unchecked
+
+        return or(
+                regex("/admin/*.*")
+        );
+
+    }
+
     @Bean
-    public Docket adminApiConfig(){
+    public Docket adminApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("adminApi")
                 .apiInfo(adminApiInfo())
                 .select()
                 //只显示admin路径下的页面
-                .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
+                .paths(selfCareApiPaths())
                 .build();
 
     }
 
-    private ApiInfo webApiInfo(){
+    private ApiInfo webApiInfo() {
 
         return new ApiInfoBuilder()
                 .title("网站-API文档")
@@ -54,7 +66,7 @@ public class Swagger2Config {
                 .build();
     }
 
-    private ApiInfo adminApiInfo(){
+    private ApiInfo adminApiInfo() {
 
         return new ApiInfoBuilder()
                 .title("后台管理系统-API文档")
